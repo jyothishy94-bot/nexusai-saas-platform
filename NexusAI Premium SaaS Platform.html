@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusAI — Autonomous Workflow Automation & Intelligence Platform</title>
+  <meta name="description" content="NexusAI delivers next-generation autonomous AI agents, enterprise workflow pipelines, real-time streaming analytics, and API infrastructure.">
+  
+  <!-- Inter & JetBrains Mono Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#070c0a',
+            surface: {
+              DEFAULT: '#0d1612',
+              card: '#111d18',
+              border: '#1b2d26',
+              hover: '#193026'
+            },
+            emeraldAccent: {
+              DEFAULT: '#00d563',
+              glow: '#10b981',
+              dim: 'rgba(0, 213, 99, 0.15)',
+              border: 'rgba(0, 213, 99, 0.3)'
+            }
+          },
+          animation: {
+            'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float-slow': 'float 6s ease-in-out infinite',
+            'glow-pulse': 'glow 4s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+            glow: {
+              '0%': { opacity: '0.4', filter: 'blur(40px)' },
+              '100%': { opacity: '0.7', filter: 'blur(60px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070c0a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1b2d26;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00d563;
+    }
+
+    /* Subtle grid background */
+    .bg-grid-pattern {
+      background-size: 38px 38px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    }
+
+    .glass-nav {
+      background: rgba(7, 12, 10, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .glass-card {
+      background: rgba(17, 29, 24, 0.72);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(27, 45, 38, 0.9);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(0, 213, 99, 0.45);
+      box-shadow: 0 0 25px rgba(0, 213, 99, 0.08);
+    }
+
+    .aura-glow {
+      background: radial-gradient(circle at 50% 50%, rgba(0, 213, 99, 0.16) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 70%);
+    }
+
+    .glow-border {
+      position: relative;
+    }
+    .glow-border::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(0, 213, 99, 0.5), transparent 60%, rgba(16, 185, 129, 0.3));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="bg-obsidian text-slate-100 font-sans antialiased overflow-x-hidden relative selection:bg-emeraldAccent selection:text-black">
+
+  <!-- Background Lighting Auras -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[700px] h-[450px] aura-glow animate-glow-pulse pointer-events-none z-0"></div>
+  <div class="fixed top-[600px] -right-[200px] w-[500px] h-[500px] aura-glow pointer-events-none z-0 opacity-40"></div>
+
+  <header class="sticky top-0 z-50 glass-nav border-b border-surface-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 rounded-lg bg-surface-card border border-emeraldAccent/40 flex items-center justify-center text-emeraldAccent group-hover:shadow-[0_0_15px_rgba(0,213,99,0.5)] transition-all">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <span class="font-extrabold text-lg tracking-tight text-white flex items-center">
+          Nexus<span class="text-emeraldAccent">AI</span>
+          <span class="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-emeraldAccent/10 text-emeraldAccent border border-emeraldAccent/30 font-mono">v3.4</span>
+        </span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#features" class="hover:text-emeraldAccent transition-colors">Features</a>
+        <a href="#pipeline" class="hover:text-emeraldAccent transition-colors">Architecture</a>
+        <a href="#dashboard" class="hover:text-emeraldAccent transition-colors">Analytics</a>
+        <a href="#pricing" class="hover:text-emeraldAccent transition-colors">Pricing</a>
+        <a href="#code" class="hover:text-emeraldAccent transition-colors">Developers</a>
+      </nav>
+
+      <!-- Desktop CTAs -->
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#pricing" class="text-xs font-semibold text-slate-300 hover:text-white px-3 py-2 transition-colors">Sign In</a>
+        <a href="#pricing" class="text-xs font-bold bg-emeraldAccent hover:bg-emeraldAccent-glow text-black px-4 py-2 rounded-lg transition-all shadow-[0_0_15px_rgba(0,213,99,0.3)] hover:shadow-[0_0_20px_rgba(0,213,99,0.5)] flex items-center gap-1.5">
+          <span>Start Free Trial</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none" aria-label="Toggle Navigation">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-b border-surface-border bg-obsidian/95 px-5 py-4 space-y-3">
+      <a href="#features" class="block text-sm font-medium text-slate-300 hover:text-emeraldAccent py-1.5" onclick="closeMobileMenu()">Features</a>
+      <a href="#pipeline" class="block text-sm font-medium text-slate-300 hover:text-emeraldAccent py-1.5" onclick="closeMobileMenu()">Architecture</a>
+      <a href="#dashboard" class="block text-sm font-medium text-slate-300 hover:text-emeraldAccent py-1.5" onclick="closeMobileMenu()">Analytics</a>
+      <a href="#pricing" class="block text-sm font-medium text-slate-300 hover:text-emeraldAccent py-1.5" onclick="closeMobileMenu()">Pricing</a>
+      <a href="#code" class="block text-sm font-medium text-slate-300 hover:text-emeraldAccent py-1.5" onclick="closeMobileMenu()">Developer API</a>
+      <div class="pt-2 flex flex-col gap-2">
+        <a href="#pricing" class="w-full text-center text-xs font-bold bg-emeraldAccent text-black py-2.5 rounded-lg" onclick="closeMobileMenu()">Start Free Trial</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 bg-grid-pattern">
+    <section class="pt-16 pb-20 md:pt-24 md:pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+      
+      <!-- Live Release Pill Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-card border border-emeraldAccent/40 mb-6 shadow-[0_0_12px_rgba(0,213,99,0.15)] animate-pulse-subtle">
+        <span class="w-2 h-2 rounded-full bg-emeraldAccent animate-ping"></span>
+        <span class="text-xs font-semibold text-emeraldAccent tracking-wide">Nexus 3.4 Released</span>
+        <span class="text-xs text-slate-400">|</span>
+        <span class="text-xs text-slate-300 font-medium flex items-center gap-1">
+          Autonomous Agent Swarms
+          <svg class="w-3 h-3 text-emeraldAccent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+
+      <!-- Hero Heading -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-[1.12]">
+        Orchestrate Autonomous Workflows with <span class="text-transparent bg-clip-text bg-gradient-to-r from-emeraldAccent via-emerald-400 to-teal-200">Real-Time Intelligence</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mt-6 text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-normal leading-relaxed">
+        Eliminate manual data wrangling. NexusAI connects your enterprise stacks, fine-tunes LLMs on edge streams, and automates multi-step execution with sub-40ms latency.
+      </p>
+
+      <!-- Primary Email / Action Input Form -->
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+        <div class="relative w-full">
+          <input type="email" id="heroEmail" placeholder="Enter work email..." class="w-full px-4 py-3 rounded-lg bg-surface-card border border-surface-border text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emeraldAccent focus:ring-1 focus:ring-emeraldAccent transition-all">
+        </div>
+        <button onclick="handleEmailSubmit()" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-emeraldAccent hover:bg-emeraldAccent-glow text-black font-bold text-sm tracking-wide transition-all shadow-[0_0_20px_rgba(0,213,99,0.3)] hover:scale-105 whitespace-nowrap">
+          Get Started
+        </button>
+      </div>
+
+      <p class="mt-3 text-xs text-slate-500 font-medium">Free 14-day trial • No credit card required • SOC2 Type II Certified</p>
+
+      <div id="dashboard" class="mt-14 max-w-5xl mx-auto rounded-2xl glass-card glow-border p-2 sm:p-4 text-left shadow-2xl overflow-hidden">
+        
+        <!-- Dashboard Top Window Controls -->
+        <div class="flex items-center justify-between pb-3 mb-3 border-b border-surface-border/80 px-2">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+            <span class="ml-3 text-xs font-mono text-slate-400 hidden sm:inline-block">nexus-cluster-prod-asia-south1.app</span>
+          </div>
+          
+          <!-- Mockup Tab Selector -->
+          <div class="flex items-center bg-obsidian rounded-lg p-1 border border-surface-border">
+            <button onclick="switchDashTab('live')" id="tab-btn-live" class="dash-tab-btn active px-3 py-1 rounded text-xs font-medium text-black bg-emeraldAccent transition-all">Live Cluster</button>
+            <button onclick="switchDashTab('throughput')" id="tab-btn-throughput" class="dash-tab-btn px-3 py-1 rounded text-xs font-medium text-slate-400 hover:text-white transition-all">Throughput</button>
+            <button onclick="switchDashTab('costs')" id="tab-btn-costs" class="dash-tab-btn px-3 py-1 rounded text-xs font-medium text-slate-400 hover:text-white transition-all">Unit Economics</button>
+          </div>
+        </div>
+
+        <!-- Metric KPI Strips -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-1">
+          <div class="bg-obsidian/70 rounded-xl p-3.5 border border-surface-border">
+            <div class="flex justify-between items-start">
+              <span class="text-xs text-slate-400 font-medium">Monthly Run Rate</span>
+              <span class="text-[10px] font-mono font-bold text-emeraldAccent bg-emeraldAccent/10 px-1.5 py-0.5 rounded">+28.4%</span>
+            </div>
+            <div id="statMRR" class="text-xl sm:text-2xl font-extrabold text-white mt-1">₹48,20,000</div>
+            <span class="text-[11px] text-slate-500">Autonomous billing</span>
+          </div>
+
+          <div class="bg-obsidian/70 rounded-xl p-3.5 border border-surface-border">
+            <div class="flex justify-between items-start">
+              <span class="text-xs text-slate-400 font-medium">Avg API Latency</span>
+              <span class="text-[10px] font-mono font-bold text-emeraldAccent bg-emeraldAccent/10 px-1.5 py-0.5 rounded">-12ms</span>
+            </div>
+            <div id="statLatency" class="text-xl sm:text-2xl font-extrabold text-white mt-1">32.4 ms</div>
+            <span class="text-[11px] text-slate-500">Global edge CDN</span>
+          </div>
+
+          <div class="bg-obsidian/70 rounded-xl p-3.5 border border-surface-border">
+            <div class="flex justify-between items-start">
+              <span class="text-xs text-slate-400 font-medium">API Calls (24h)</span>
+              <span class="text-[10px] font-mono font-bold text-teal-400 bg-teal-400/10 px-1.5 py-0.5 rounded">99.98%</span>
+            </div>
+            <div id="statCalls" class="text-xl sm:text-2xl font-extrabold text-white mt-1">14,291,402</div>
+            <span class="text-[11px] text-slate-500">0 dropped packets</span>
+          </div>
+
+          <div class="bg-obsidian/70 rounded-xl p-3.5 border border-surface-border">
+            <div class="flex justify-between items-start">
+              <span class="text-xs text-slate-400 font-medium">Active Agent Tasks</span>
+              <span class="text-[10px] font-mono font-bold text-emeraldAccent bg-emeraldAccent/10 px-1.5 py-0.5 rounded">Optimal</span>
+            </div>
+            <div id="statTasks" class="text-xl sm:text-2xl font-extrabold text-white mt-1">1,842</div>
+            <span class="text-[11px] text-slate-500">Concurrent pipelines</span>
+          </div>
+        </div>
+
+        <!-- Dashboard Canvas / Dynamic SVG Visualization -->
+        <div class="mt-4 bg-obsidian/90 rounded-xl p-4 border border-surface-border relative">
+          <div class="flex justify-between items-center mb-3">
+            <span id="chartTitle" class="text-xs font-semibold text-slate-300 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emeraldAccent"></span> Real-Time Traffic & Token Execution
+            </span>
+            <span class="text-[11px] font-mono text-emeraldAccent">Stream: LIVE 100ms</span>
+          </div>
+
+          <!-- Dynamic SVG Line Chart -->
+          <div class="h-44 w-full relative">
+            <svg class="w-full h-full overflow-visible" viewBox="0 0 900 160" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#00d563" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#00d563" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <!-- Gridlines -->
+              <line x1="0" y1="40" x2="900" y2="40" stroke="#1a2e26" stroke-width="1" stroke-dasharray="4"/>
+              <line x1="0" y1="80" x2="900" y2="80" stroke="#1a2e26" stroke-width="1" stroke-dasharray="4"/>
+              <line x1="0" y1="120" x2="900" y2="120" stroke="#1a2e26" stroke-width="1" stroke-dasharray="4"/>
+              
+              <!-- Gradient Area -->
+              <path id="svgArea" d="M 0,130 Q 150,70 300,100 T 600,45 T 900,20 L 900,160 L 0,160 Z" fill="url(#chartGradient)"/>
+              
+              <!-- Primary Line -->
+              <path id="svgLine" d="M 0,130 Q 150,70 300,100 T 600,45 T 900,20" fill="none" stroke="#00d563" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <!-- Chart Bottom Axis -->
+          <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-2">
+            <span>13:00:00</span>
+            <span>13:05:00</span>
+            <span>13:10:00</span>
+            <span>13:15:00</span>
+            <span>13:20:00</span>
+            <span>Current (Live)</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="border-y border-surface-border bg-surface/60 py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="text-center text-xs font-semibold uppercase tracking-widest text-slate-400 mb-6">
+          Powering Autonomous Intelligence Across Fortune 500 & Hyper-Growth Scaleups
+        </p>
+        
+        <!-- Mockup Brand Logos -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6 items-center justify-center opacity-65 text-slate-300 font-mono text-sm tracking-wider text-center">
+          <div class="hover:text-emeraldAccent transition-colors">ACME CORP</div>
+          <div class="hover:text-emeraldAccent transition-colors">HYPERSCALE</div>
+          <div class="hover:text-emeraldAccent transition-colors">SYNTHEX.IO</div>
+          <div class="hover:text-emeraldAccent transition-colors">VORTEX AI</div>
+          <div class="hover:text-emeraldAccent transition-colors">NEO-FINANCE</div>
+          <div class="hover:text-emeraldAccent transition-colors">CLOUDFLOW</div>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-surface-border/60 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-white">99.999%</div>
+            <div class="text-xs text-slate-400 mt-1">Uptime SLA Guarantee</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-white">450M+</div>
+            <div class="text-xs text-slate-400 mt-1">Daily Automated Tasks</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-white">&lt; 38ms</div>
+            <div class="text-xs text-slate-400 mt-1">Median Global Latency</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-emeraldAccent">SOC2 Type II</div>
+            <div class="text-xs text-slate-400 mt-1">ISO 27001 & HIPAA Ready</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pipeline" class="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-widest text-emeraldAccent bg-emeraldAccent/10 px-3 py-1 rounded-full border border-emeraldAccent/30">Architecture Visualization</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4">Autonomous Multi-Agent Workflow Engine</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-3">Watch your events traverse from ingest to fine-tuned autonomous execution with live step-through debugging.</p>
+      </div>
+
+      <!-- Interactive Node Pipeline -->
+      <div class="glass-card rounded-2xl p-6 md:p-8 glow-border">
+        
+        <!-- Controls -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-surface-border">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emeraldAccent animate-ping"></span>
+            <span class="text-xs font-mono text-slate-300">Pipeline State: <span id="pipelineStatus" class="text-emeraldAccent font-bold">ACTIVE STREAMING</span></span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="triggerPipelineRun()" class="px-3.5 py-1.5 rounded-lg bg-surface-card hover:bg-surface-hover text-emeraldAccent border border-emeraldAccent/40 text-xs font-semibold transition-all flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg>
+              <span>Execute Event Spike</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Flow Nodes Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8 relative">
+          
+          <!-- Node 1 -->
+          <div id="node-1" class="node-box p-4 rounded-xl bg-obsidian border-2 border-emeraldAccent/70 shadow-[0_0_15px_rgba(0,213,99,0.1)] transition-all">
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
+              <span>STEP 01</span>
+              <span class="text-emeraldAccent">INGEST</span>
+            </div>
+            <div class="font-bold text-white text-base">Webhook Trigger</div>
+            <p class="text-xs text-slate-400 mt-1">Kafka / Stripe / Postgres CDC</p>
+            <div class="mt-3 text-[11px] font-mono text-slate-400 bg-surface-card p-2 rounded border border-surface-border">
+              payload: { event: "charge.success", amt: 12900 }
+            </div>
+          </div>
+
+          <!-- Node 2 -->
+          <div id="node-2" class="node-box p-4 rounded-xl bg-obsidian border border-surface-border hover:border-emeraldAccent/50 transition-all">
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
+              <span>STEP 02</span>
+              <span class="text-teal-400">INFERENCE</span>
+            </div>
+            <div class="font-bold text-white text-base">LLM Orchestration</div>
+            <p class="text-xs text-slate-400 mt-1">DeepSeek / Claude 3.5 / Llama 3</p>
+            <div class="mt-3 text-[11px] font-mono text-slate-400 bg-surface-card p-2 rounded border border-surface-border">
+              intent: "fraud_assessment", score: 0.02
+            </div>
+          </div>
+
+          <!-- Node 3 -->
+          <div id="node-3" class="node-box p-4 rounded-xl bg-obsidian border border-surface-border hover:border-emeraldAccent/50 transition-all">
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
+              <span>STEP 03</span>
+              <span class="text-emeraldAccent">DECISION</span>
+            </div>
+            <div class="font-bold text-white text-base">State Machine Filter</div>
+            <p class="text-xs text-slate-400 mt-1">Conditional Edge Evaluation</p>
+            <div class="mt-3 text-[11px] font-mono text-slate-400 bg-surface-card p-2 rounded border border-surface-border">
+              match: rule_risk_low -> route: instant_fulfill
+            </div>
+          </div>
+
+          <!-- Node 4 -->
+          <div id="node-4" class="node-box p-4 rounded-xl bg-obsidian border border-surface-border hover:border-emeraldAccent/50 transition-all">
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-2">
+              <span>STEP 04</span>
+              <span class="text-emeraldAccent">DISPATCH</span>
+            </div>
+            <div class="font-bold text-white text-base">Autonomous Action</div>
+            <p class="text-xs text-slate-400 mt-1">Database Update & Slack/ERP</p>
+            <div class="mt-3 text-[11px] font-mono text-emeraldAccent bg-surface-card p-2 rounded border border-surface-border">
+              status: 200 OK (Latency: 28ms)
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-6 flex justify-between items-center text-xs text-slate-500 font-mono">
+          <span>Concurrency: 100,000 req/sec</span>
+          <span class="text-emeraldAccent">Zero cold starts on edge runtimes</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-emeraldAccent bg-emeraldAccent/10 px-3 py-1 rounded-full border border-emeraldAccent/30">Core Capabilities</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4">Built for Engineering Rigor & Scale</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-3">From real-time vector embeddings to SOC2 compliance guardrails, everything is modular and enterprise ready.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Feature 1 -->
+        <div class="glass-card rounded-xl p-6 transition-all hover:-translate-y-1">
+          <div class="w-10 h-10 rounded-lg bg-emeraldAccent/10 border border-emeraldAccent/30 flex items-center justify-center text-emeraldAccent mb-4">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-white">Sub-40ms Edge Execution</h3>
+          <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+            Deploy state machines across 280+ edge nodes globally. Process payloads near your users without origin roundtrips.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="glass-card rounded-xl p-6 transition-all hover:-translate-y-1">
+          <div class="w-10 h-10 rounded-lg bg-emeraldAccent/10 border border-emeraldAccent/30 flex items-center justify-center text-emeraldAccent mb-4">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-white">Granular Escrow & RBAC</h3>
+          <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+            Role-based permissions with cryptographic audit trails. Every autonomous decision is signed and replayable for compliance.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="glass-card rounded-xl p-6 transition-all hover:-translate-y-1">
+          <div class="w-10 h-10 rounded-lg bg-emeraldAccent/10 border border-emeraldAccent/30 flex items-center justify-center text-emeraldAccent mb-4">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-white">Streaming Vector Memory</h3>
+          <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+            Real-time hybrid RAG with semantic caching. Reduce LLM inference costs by up to 68% using predictive cache hits.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="code" class="py-20 bg-surface/50 border-y border-surface-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          <div class="lg:col-span-5">
+            <span class="text-xs font-bold uppercase tracking-widest text-emeraldAccent bg-emeraldAccent/10 px-3 py-1 rounded-full border border-emeraldAccent/30">Developer Experience</span>
+            <h2 class="text-3xl font-extrabold text-white mt-4">One Clean SDK, Any Language</h2>
+            <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+              Integrate NexusAI autonomous agent swarms in less than 5 minutes. Typed SDKs, automated retries, and native OpenTelemetry support out of the box.
+            </p>
+
+            <div class="mt-6 space-y-3 text-xs font-mono text-slate-300">
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-emeraldAccent/20 text-emeraldAccent flex items-center justify-center font-bold">✓</span>
+                <span>Type-Safe TypeScript & Python definitions</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-emeraldAccent/20 text-emeraldAccent flex items-center justify-center font-bold">✓</span>
+                <span>Native asynchronous streaming responses</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-emeraldAccent/20 text-emeraldAccent flex items-center justify-center font-bold">✓</span>
+                <span>Built-in circuit breaking and exponential backoff</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code IDE Window -->
+          <div class="lg:col-span-7 rounded-xl bg-obsidian border border-surface-border overflow-hidden shadow-2xl">
+            <!-- IDE Bar -->
+            <div class="flex items-center justify-between px-4 py-2.5 bg-surface-card border-b border-surface-border">
+              <div class="flex items-center gap-2">
+                <button onclick="switchCodeLang('curl')" id="code-btn-curl" class="code-lang-btn px-2.5 py-1 rounded text-xs font-mono text-emeraldAccent font-semibold bg-obsidian">cURL</button>
+                <button onclick="switchCodeLang('python')" id="code-btn-python" class="code-lang-btn px-2.5 py-1 rounded text-xs font-mono text-slate-400 hover:text-white">Python</button>
+                <button onclick="switchCodeLang('nodejs')" id="code-btn-nodejs" class="code-lang-btn px-2.5 py-1 rounded text-xs font-mono text-slate-400 hover:text-white">Node.js</button>
+                <button onclick="switchCodeLang('go')" id="code-btn-go" class="code-lang-btn px-2.5 py-1 rounded text-xs font-mono text-slate-400 hover:text-white">Go</button>
+              </div>
+              <button onclick="copyCodeSnippet()" id="copyBtn" class="text-xs text-slate-400 hover:text-emeraldAccent font-mono flex items-center gap-1.5 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <span id="copyBtnText">Copy</span>
+              </button>
+            </div>
+
+            <!-- Code Pre/Code Area -->
+            <pre class="p-5 text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"><code id="codeDisplay">curl -X POST https://api.nexusai.cloud/v1/agents/trigger \
+  -H "Authorization: Bearer nex_sec_9941a8fd" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pipeline_id": "pipe_fraud_eval_01",
+    "payload": {
+      "user_id": "usr_94104",
+      "transaction_value_inr": 24500,
+      "risk_threshold": "adaptive"
+    },
+    "edge_routing": "auto"
+  }'</code></pre>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-emeraldAccent bg-emeraldAccent/10 px-3 py-1 rounded-full border border-emeraldAccent/30">Predictable Economics</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4">Scales With Your Volume, Not Headcount</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-3">Start free, scale on consumption. No hidden ingress charges.</p>
+        
+        <!-- Billing Toggle -->
+        <div class="mt-8 inline-flex items-center gap-3 p-1 rounded-full bg-surface-card border border-surface-border">
+          <button id="billing-monthly" onclick="setBilling('monthly')" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-emeraldAccent text-black transition-all">Monthly</button>
+          <button id="billing-annual" onclick="setBilling('annual')" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white transition-all flex items-center gap-1.5">
+            <span>Annual</span>
+            <span class="text-[10px] bg-emeraldAccent/20 text-emeraldAccent px-1.5 py-0.5 rounded-full font-bold">Save 20%</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pricing Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        
+        <!-- Starter Tier -->
+        <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-white">Starter</h3>
+            <p class="text-xs text-slate-400 mt-1">For indie builders and prototype validation.</p>
+            <div class="mt-6 flex items-baseline gap-1">
+              <span class="text-3xl font-extrabold text-white" id="price-starter">₹3,499</span>
+              <span class="text-xs text-slate-400 font-medium">/month</span>
+            </div>
+            
+            <ul class="mt-6 space-y-3 text-xs text-slate-300">
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> Up to 500,000 monthly events
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> 5 Concurrent autonomous pipelines
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> Standard community support
+              </li>
+              <li class="flex items-center gap-2 text-slate-500">
+                <span>—</span> Dedicated VPC isolation
+              </li>
+            </ul>
+          </div>
+          <button class="mt-8 w-full py-2.5 rounded-lg border border-surface-border hover:border-emeraldAccent text-xs font-bold text-white hover:text-emeraldAccent transition-all">
+            Deploy Starter
+          </button>
+        </div>
+
+        <!-- Pro Tier (Highlighted) -->
+        <div class="glass-card rounded-2xl p-7 flex flex-col justify-between border-emeraldAccent/60 shadow-[0_0_30px_rgba(0,213,99,0.12)] relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emeraldAccent text-black text-[10px] font-extrabold px-3 py-0.5 rounded-full uppercase tracking-wider">
+            Most Popular
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white">Production Scale</h3>
+            <p class="text-xs text-slate-400 mt-1">For venture-backed startups and growing teams.</p>
+            <div class="mt-6 flex items-baseline gap-1">
+              <span class="text-3xl font-extrabold text-emeraldAccent" id="price-pro">₹14,999</span>
+              <span class="text-xs text-slate-400 font-medium">/month</span>
+            </div>
+            
+            <ul class="mt-6 space-y-3 text-xs text-slate-300">
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> 10,000,000 monthly events
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> Unlimited workflow nodes & agents
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> 99.99% Uptime SLA
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> 24/7 Dedicated Slack channel
+              </li>
+            </ul>
+          </div>
+          <button class="mt-8 w-full py-2.5 rounded-lg bg-emeraldAccent hover:bg-emeraldAccent-glow text-black font-bold text-xs transition-all shadow-[0_0_15px_rgba(0,213,99,0.3)]">
+            Start Free 14-Day Trial
+          </button>
+        </div>
+
+        <!-- Enterprise Tier -->
+        <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-white">Enterprise Mesh</h3>
+            <p class="text-xs text-slate-400 mt-1">For regulated high-volume enterprise clusters.</p>
+            <div class="mt-6 flex items-baseline gap-1">
+              <span class="text-3xl font-extrabold text-white">Custom</span>
+              <span class="text-xs text-slate-400 font-medium">/annual contract</span>
+            </div>
+            
+            <ul class="mt-6 space-y-3 text-xs text-slate-300">
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> Unlimited events & throughput
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> On-premise VPC / AWS Outpost deploy
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> Custom fine-tuned LLM checkpoints
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-emeraldAccent font-bold">✓</span> SOC2, HIPAA, ISO 27001 signing
+              </li>
+            </ul>
+          </div>
+          <button class="mt-8 w-full py-2.5 rounded-lg border border-surface-border hover:border-emeraldAccent text-xs font-bold text-white hover:text-emeraldAccent transition-all">
+            Schedule Architecture Review
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="py-20 bg-surface/40 border-t border-surface-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+          <span class="text-xs font-bold uppercase tracking-widest text-emeraldAccent bg-emeraldAccent/10 px-3 py-1 rounded-full border border-emeraldAccent/30">Verified Customer Stories</span>
+          <h2 class="text-3xl font-extrabold text-white mt-4">Trusted by Engineering Leaders</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass-card rounded-xl p-6">
+            <p class="text-xs sm:text-sm text-slate-300 italic leading-relaxed">
+              "NexusAI cut our payment fraud evaluation window from 850ms to 24ms. The autonomous agent workflows handled our Diwali flash sale spike without dropping a single webhook."
+            </p>
+            <div class="mt-6 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-emeraldAccent/20 border border-emeraldAccent text-emeraldAccent font-bold flex items-center justify-center text-xs">
+                AK
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white">Ananya Kapoor</div>
+                <div class="text-[11px] text-slate-500">VP Engineering, BharatPay Tech</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-6">
+            <p class="text-xs sm:text-sm text-slate-300 italic leading-relaxed">
+              "The ability to step through live state machine nodes and trace token execution in real time saved our platform team hundreds of engineering hours."
+            </p>
+            <div class="mt-6 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-emeraldAccent/20 border border-emeraldAccent text-emeraldAccent font-bold flex items-center justify-center text-xs">
+                RS
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white">Rohit Sharma</div>
+                <div class="text-[11px] text-slate-500">CTO, Omniflow Systems</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-6">
+            <p class="text-xs sm:text-sm text-slate-300 italic leading-relaxed">
+              "Switching from our legacy Celery/Redis microservices to NexusAI reduced our AWS compute bill by 42% in month one. The edge routing is simply unbeatable."
+            </p>
+            <div class="mt-6 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-emeraldAccent/20 border border-emeraldAccent text-emeraldAccent font-bold flex items-center justify-center text-xs">
+                MK
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white">Meera Kulkarni</div>
+                <div class="text-[11px] text-slate-500">Head of Infrastructure, FinScale</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-emeraldAccent bg-emeraldAccent/10 px-3 py-1 rounded-full border border-emeraldAccent/30">Common Questions</span>
+        <h2 class="text-3xl font-extrabold text-white mt-4">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="space-y-3">
+        <!-- FAQ 1 -->
+        <div class="glass-card rounded-xl overflow-hidden">
+          <button onclick="toggleFaq('faq-1')" class="w-full px-5 py-4 text-left flex justify-between items-center text-sm font-semibold text-white focus:outline-none">
+            <span>How does NexusAI ensure sub-40ms execution on complex LLM tasks?</span>
+            <span id="faq-icon-1" class="text-emeraldAccent text-lg">+</span>
+          </button>
+          <div id="faq-1" class="hidden px-5 pb-4 text-xs sm:text-sm text-slate-400 border-t border-surface-border pt-3">
+            NexusAI deploys a globally distributed mesh with intelligent speculative caching. Non-semantic evaluations run locally via compiled WebAssembly runtime engines on edge servers, while LLM calls route to regional low-latency tensor accelerators.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="glass-card rounded-xl overflow-hidden">
+          <button onclick="toggleFaq('faq-2')" class="w-full px-5 py-4 text-left flex justify-between items-center text-sm font-semibold text-white focus:outline-none">
+            <span>Can we host NexusAI on private AWS or Azure VPCs?</span>
+            <span id="faq-icon-2" class="text-emeraldAccent text-lg">+</span>
+          </button>
+          <div id="faq-2" class="hidden px-5 pb-4 text-xs sm:text-sm text-slate-400 border-t border-surface-border pt-3">
+            Yes. Our Enterprise Mesh plan provides Helm charts and Terraform recipes to deploy the full agent runtime directly into your private Kubernetes cluster (EKS, AKS, GKE) without data egress.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="glass-card rounded-xl overflow-hidden">
+          <button onclick="toggleFaq('faq-3')" class="w-full px-5 py-4 text-left flex justify-between items-center text-sm font-semibold text-white focus:outline-none">
+            <span>Are you compliant with Indian data localization regulations?</span>
+            <span id="faq-icon-3" class="text-emeraldAccent text-lg">+</span>
+          </button>
+          <div id="faq-3" class="hidden px-5 pb-4 text-xs sm:text-sm text-slate-400 border-t border-surface-border pt-3">
+            Yes, all payment and user financial information can be pinned strictly to the Mumbai (ap-south-1) and Hyderabad (ap-south-2) regions in compliance with RBI and DPDP data localization requirements.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl glass-card glow-border p-8 md:p-12 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-emeraldAccent/10 via-transparent to-teal-400/10 pointer-events-none"></div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Ready to Automate Your Critical Workflows?</h2>
+        <p class="mt-4 text-slate-400 text-sm max-w-xl mx-auto">
+          Join over 1,200 forward-thinking development teams building resilient, autonomous systems on NexusAI.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="#pricing" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-emeraldAccent hover:bg-emeraldAccent-glow text-black font-bold text-sm transition-all shadow-[0_0_20px_rgba(0,213,99,0.3)]">
+            Start Free 14-Day Trial
+          </a>
+          <a href="#code" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-surface-card hover:bg-surface-hover border border-surface-border text-white font-semibold text-sm transition-all">
+            Read API Documentation
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-surface-border bg-obsidian py-12 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
+      
+      <div class="col-span-2">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 rounded bg-surface-card border border-emeraldAccent/40 flex items-center justify-center text-emeraldAccent font-bold text-xs">
+            N
+          </div>
+          <span class="font-extrabold text-white tracking-tight">NexusAI Systems Inc.</span>
+        </div>
+        <p class="mt-3 text-slate-500 max-w-sm">
+          Next-generation autonomous agent infrastructure, real-time workflow orchestration, and high-throughput LLM pipelines.
+        </p>
+        <div class="mt-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emeraldAccent"></span>
+          <span class="text-slate-300 font-mono text-[11px]">All Systems Operational</span>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white uppercase tracking-wider mb-3">Product</h4>
+        <ul class="space-y-2">
+          <li><a href="#pipeline" class="hover:text-emeraldAccent transition-colors">Agent Runtime</a></li>
+          <li><a href="#dashboard" class="hover:text-emeraldAccent transition-colors">Stream Analytics</a></li>
+          <li><a href="#features" class="hover:text-emeraldAccent transition-colors">Vector Memory</a></li>
+          <li><a href="#pricing" class="hover:text-emeraldAccent transition-colors">Enterprise Mesh</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white uppercase tracking-wider mb-3">Resources</h4>
+        <ul class="space-y-2">
+          <li><a href="#code" class="hover:text-emeraldAccent transition-colors">API Reference</a></li>
+          <li><a href="#code" class="hover:text-emeraldAccent transition-colors">Node & Python SDKs</a></li>
+          <li><a href="#features" class="hover:text-emeraldAccent transition-colors">Security Whitepaper</a></li>
+          <li><a href="#pipeline" class="hover:text-emeraldAccent transition-colors">Architecture Guide</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white uppercase tracking-wider mb-3">Company</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-emeraldAccent transition-colors">About Us</a></li>
+          <li><a href="#" class="hover:text-emeraldAccent transition-colors">Careers (We're Hiring)</a></li>
+          <li><a href="#" class="hover:text-emeraldAccent transition-colors">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-emeraldAccent transition-colors">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-surface-border pt-6 flex flex-col sm:flex-row items-center justify-between text-slate-500">
+      <p>© 2026 NexusAI Cloud Technologies. All rights reserved.</p>
+      <div class="flex gap-4 mt-3 sm:mt-0 font-mono text-[11px]">
+        <span>REGION: AP-SOUTH-1</span>
+        <span>LATENCY: 22ms</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Notification Toast Modal -->
+  <div id="toast" class="fixed bottom-5 right-5 bg-surface-card border border-emeraldAccent text-white px-4 py-3 rounded-lg shadow-2xl text-xs flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+    <span class="w-2 h-2 rounded-full bg-emeraldAccent"></span>
+    <span id="toastMsg">Action completed successfully.</span>
+  </div>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('hidden');
+    }
+    function closeMobileMenu() {
+      mobileMenu.classList.add('hidden');
+    }
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+    // Toast Notification helper (replaces alerts)
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3200);
+    }
+
+    // Hero Email Capture
+    function handleEmailSubmit() {
+      const email = document.getElementById('heroEmail').value.trim();
+      if (!email || !email.includes('@')) {
+        showToast('Please provide a valid enterprise email.');
+        return;
+      }
+      showToast(`Welcome! Invitation token generated for ${email}`);
+      document.getElementById('heroEmail').value = '';
+    }
+
+    // Dashboard Tab Switcher & Dynamic Metric Generator
+    function switchDashTab(tabName) {
+      document.querySelectorAll('.dash-tab-btn').forEach(btn => {
+        btn.classList.remove('text-black', 'bg-emeraldAccent');
+        btn.classList.add('text-slate-400');
+      });
+      
+      const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+      activeBtn.classList.add('text-black', 'bg-emeraldAccent');
+      activeBtn.classList.remove('text-slate-400');
+
+      const chartTitle = document.getElementById('chartTitle');
+      const statMRR = document.getElementById('statMRR');
+      const statLatency = document.getElementById('statLatency');
+      const statCalls = document.getElementById('statCalls');
+      const svgLine = document.getElementById('svgLine');
+      const svgArea = document.getElementById('svgArea');
+
+      if (tabName === 'live') {
+        chartTitle.innerHTML = '<span class="w-2 h-2 rounded-full bg-emeraldAccent"></span> Real-Time Traffic & Token Execution';
+        statMRR.innerText = '₹48,20,000';
+        statLatency.innerText = '32.4 ms';
+        statCalls.innerText = '14,291,402';
+        svgLine.setAttribute('d', 'M 0,130 Q 150,70 300,100 T 600,45 T 900,20');
+        svgArea.setAttribute('d', 'M 0,130 Q 150,70 300,100 T 600,45 T 900,20 L 900,160 L 0,160 Z');
+      } else if (tabName === 'throughput') {
+        chartTitle.innerHTML = '<span class="w-2 h-2 rounded-full bg-teal-400"></span> Edge Throughput (Packets / Second)';
+        statMRR.innerText = '₹52,40,000';
+        statLatency.innerText = '21.0 ms';
+        statCalls.innerText = '28,102,891';
+        svgLine.setAttribute('d', 'M 0,150 Q 200,20 400,90 T 700,30 T 900,10');
+        svgArea.setAttribute('d', 'M 0,150 Q 200,20 400,90 T 700,30 T 900,10 L 900,160 L 0,160 Z');
+      } else {
+        chartTitle.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-300"></span> Token Unit Economics (₹ per 1M Ops)';
+        statMRR.innerText = '₹41,90,000';
+        statLatency.innerText = '39.8 ms';
+        statCalls.innerText = '8,421,900';
+        svgLine.setAttribute('d', 'M 0,60 Q 250,140 500,80 T 750,110 T 900,50');
+        svgArea.setAttribute('d', 'M 0,60 Q 250,140 500,80 T 750,110 T 900,50 L 900,160 L 0,160 Z');
+      }
+    }
+
+    // Code Snippets Storage
+    const codeSnippets = {
+      curl: `curl -X POST https://api.nexusai.cloud/v1/agents/trigger \\
+  -H "Authorization: Bearer nex_sec_9941a8fd" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "pipeline_id": "pipe_fraud_eval_01",
+    "payload": {
+      "user_id": "usr_94104",
+      "transaction_value_inr": 24500,
+      "risk_threshold": "adaptive"
+    },
+    "edge_routing": "auto"
+  }'`,
+      python: `import nexusai
+
+client = nexusai.Client(api_key="nex_sec_9941a8fd")
+
+response = client.agents.trigger(
+    pipeline_id="pipe_fraud_eval_01",
+    payload={
+        "user_id": "usr_94104",
+        "transaction_value_inr": 24500,
+        "risk_threshold": "adaptive"
+    },
+    edge_routing="auto"
+)
+
+print(f"Status: {response.status}, Latency: {response.latency_ms}ms")`,
+      nodejs: `import { NexusClient } from '@nexusai/sdk';
+
+const client = new NexusClient({ apiKey: 'nex_sec_9941a8fd' });
+
+const { data, latencyMs } = await client.agents.trigger({
+  pipelineId: 'pipe_fraud_eval_01',
+  payload: {
+    userId: 'usr_94104',
+    transactionValueInr: 24500,
+    riskThreshold: 'adaptive'
+  },
+  edgeRouting: 'auto'
+});
+
+console.log(\`Processed in \${latencyMs}ms with outcome: \${data.status}\`);`,
+      go: `package main
+
+import (
+    "context"
+    "fmt"
+    "github.com/nexusai/nexus-go"
+)
+
+func main() {
+    client := nexus.NewClient("nex_sec_9941a8fd")
+    res, err := client.TriggerPipeline(context.Background(), &nexus.PipelineReq{
+        PipelineID: "pipe_fraud_eval_01",
+        Payload: map[string]interface{}{
+            "user_id": "usr_94104",
+            "transaction_value_inr": 24500,
+        },
+    })
+    if err != nil { panic(err) }
+    fmt.Printf("State: %s (Time: %dms)\\n", res.Status, res.LatencyMS)
+}`
+    };
+
+    function switchCodeLang(lang) {
+      document.querySelectorAll('.code-lang-btn').forEach(btn => {
+        btn.classList.remove('text-emeraldAccent', 'font-semibold', 'bg-obsidian');
+        btn.classList.add('text-slate-400');
+      });
+      const activeBtn = document.getElementById(`code-btn-${lang}`);
+      activeBtn.classList.add('text-emeraldAccent', 'font-semibold', 'bg-obsidian');
+      activeBtn.classList.remove('text-slate-400');
+
+      document.getElementById('codeDisplay').innerText = codeSnippets[lang];
+    }
+
+    // Safe Clipboard Copying
+    function copyCodeSnippet() {
+      const codeText = document.getElementById('codeDisplay').innerText;
+      const dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = codeText;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+
+      const copyBtnText = document.getElementById('copyBtnText');
+      copyBtnText.innerText = 'Copied!';
+      showToast('API snippet copied to clipboard');
+      setTimeout(() => {
+        copyBtnText.innerText = 'Copy';
+      }, 2000);
+    }
+
+    // Billing Switcher
+    function setBilling(mode) {
+      const btnMonthly = document.getElementById('billing-monthly');
+      const btnAnnual = document.getElementById('billing-annual');
+      const priceStarter = document.getElementById('price-starter');
+      const pricePro = document.getElementById('price-pro');
+
+      if (mode === 'annual') {
+        btnAnnual.classList.add('bg-emeraldAccent', 'text-black');
+        btnAnnual.classList.remove('text-slate-400');
+        btnMonthly.classList.remove('bg-emeraldAccent', 'text-black');
+        btnMonthly.classList.add('text-slate-400');
+
+        priceStarter.innerText = '₹2,799';
+        pricePro.innerText = '₹11,999';
+        showToast('Annual discount of 20% applied');
+      } else {
+        btnMonthly.classList.add('bg-emeraldAccent', 'text-black');
+        btnMonthly.classList.remove('text-slate-400');
+        btnAnnual.classList.remove('bg-emeraldAccent', 'text-black');
+        btnAnnual.classList.add('text-slate-400');
+
+        priceStarter.innerText = '₹3,499';
+        pricePro.innerText = '₹14,999';
+      }
+    }
+
+    // Interactive Node Pipeline Runner
+    function triggerPipelineRun() {
+      const nodes = [
+        document.getElementById('node-1'),
+        document.getElementById('node-2'),
+        document.getElementById('node-3'),
+        document.getElementById('node-4')
+      ];
+      const status = document.getElementById('pipelineStatus');
+      status.innerText = 'PROCESSING SPIKE (25,000 req/s)';
+
+      nodes.forEach((n, idx) => {
+        setTimeout(() => {
+          n.classList.add('border-emeraldAccent', 'scale-[1.03]', 'shadow-[0_0_20px_rgba(0,213,99,0.3)]');
+          setTimeout(() => {
+            n.classList.remove('scale-[1.03]');
+          }, 350);
+        }, idx * 250);
+      });
+
+      setTimeout(() => {
+        status.innerText = 'ACTIVE STREAMING';
+        showToast('Pipeline event spike dispatched and settled in 31ms.');
+      }, 1300);
+    }
+
+    // FAQ Accordion Toggle
+    function toggleFaq(id) {
+      const el = document.getElementById(id);
+      const iconId = 'faq-icon-' + id.split('-')[1];
+      const icon = document.getElementById(iconId);
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        icon.innerText = '−';
+      } else {
+        el.classList.add('hidden');
+        icon.innerText = '+';
+      }
+    }
+  </script>
+</body>
+</html>
